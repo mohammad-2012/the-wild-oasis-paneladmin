@@ -1,10 +1,27 @@
 import Button from "../../ui/Button";
 import CreateCabinForm from "./CreateCabinForm";
 import Modal from "../../ui/Modal";
+import styled from "styled-components";
+
+const AddCabinWrapper = styled.div`
+  margin-top: 1.6rem;
+
+  @media (max-width: 768px) {
+    margin-top: 1.2rem;
+  }
+
+  @media (max-width: 480px) {
+    margin-top: 1rem;
+
+    button {
+      width: 100%;
+    }
+  }
+`;
 
 function AddCabin() {
   return (
-    <div>
+    <AddCabinWrapper>
       <Modal>
         <Modal.Open opens="cabin-form">
           <Button>Add new cabin</Button>
@@ -13,9 +30,11 @@ function AddCabin() {
           <CreateCabinForm />
         </Modal.Window>
       </Modal>
-    </div>
+    </AddCabinWrapper>
   );
 }
+
+export default AddCabin;
 
 // function AddCabin() {
 //   const [isOpenModal, setIsOpenModal] = useState(false);
@@ -33,5 +52,3 @@ function AddCabin() {
 //     </div>
 //   );
 // }
-
-export default AddCabin;

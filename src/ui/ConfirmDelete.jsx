@@ -18,6 +18,30 @@ const StyledConfirmDelete = styled.div`
     justify-content: flex-end;
     gap: 1.2rem;
   }
+
+  @media (max-width: 768px) {
+    width: 100%;
+    max-width: 40rem;
+    gap: 1rem;
+  }
+
+  @media (max-width: 480px) {
+    gap: 0.8rem;
+
+    & p {
+      margin-bottom: 0.8rem;
+      font-size: 1.4rem;
+    }
+
+    & div {
+      flex-direction: column-reverse;
+      gap: 0.8rem;
+
+      button {
+        width: 100%;
+      }
+    }
+  }
 `;
 
 function ConfirmDelete({ resourceName, onConfirm, disabled, onCloseModal }) {

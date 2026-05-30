@@ -1,11 +1,25 @@
 import { useForm } from "react-hook-form";
+import styled from "styled-components";
 import Button from "../../ui/Button";
 import Form from "../../ui/Form";
 import FormRow from "../../ui/FormRow";
 import Input from "../../ui/Input";
 import { useSignup } from "./useSignup";
 
-// Email regex: /\S+@\S+\.\S+/
+const FormButtons = styled.div`
+  display: flex;
+  gap: 1rem;
+  justify-content: flex-end;
+
+  @media (max-width: 480px) {
+    flex-direction: column-reverse;
+    gap: 0.75rem;
+
+    button {
+      width: 100%;
+    }
+  }
+`;
 
 function SignupForm() {
   const { signup, isLoading } = useSignup();
@@ -17,7 +31,7 @@ function SignupForm() {
       { fullName, email, password },
       {
         onSettled: () => reset(),
-      }
+      },
     );
   }
 
@@ -78,8 +92,7 @@ function SignupForm() {
         />
       </FormRow>
 
-      <FormRow>
-        {/* type is an HTML attribute! */}
+      <FormButtons>
         <Button
           variation="secondary"
           type="reset"
@@ -89,7 +102,7 @@ function SignupForm() {
           Cancel
         </Button>
         <Button disabled={isLoading}>Create new user</Button>
-      </FormRow>
+      </FormButtons>
     </Form>
   );
 }

@@ -14,6 +14,16 @@ const StyledModal = styled.div`
   box-shadow: var(--shadow-lg);
   padding: 3.2rem 4rem;
   transition: all 0.5s;
+
+  @media (max-width: 768px) {
+    width: 90%;
+    padding: 2.4rem;
+  }
+
+  @media (max-width: 480px) {
+    width: 95%;
+    padding: 2rem;
+  }
 `;
 
 const Overlay = styled.div`
@@ -26,6 +36,10 @@ const Overlay = styled.div`
   backdrop-filter: blur(4px);
   z-index: 1000;
   transition: all 0.5s;
+
+  @media (max-width: 768px) {
+    backdrop-filter: blur(2px);
+  }
 `;
 
 const Button = styled.button`
@@ -46,10 +60,17 @@ const Button = styled.button`
   & svg {
     width: 2.4rem;
     height: 2.4rem;
-    /* Sometimes we need both */
-    /* fill: var(--color-grey-500);
-    stroke: var(--color-grey-500); */
     color: var(--color-grey-500);
+  }
+
+  @media (max-width: 480px) {
+    top: 0.8rem;
+    right: 1.2rem;
+
+    & svg {
+      width: 2rem;
+      height: 2rem;
+    }
   }
 `;
 
@@ -90,7 +111,7 @@ function Window({ children, name }) {
         <div>{cloneElement(children, { onCloseModal: close })}</div>
       </StyledModal>
     </Overlay>,
-    document.body
+    document.body,
   );
 }
 

@@ -9,6 +9,16 @@ const StyledFilter = styled.div`
   padding: 0.4rem;
   display: flex;
   gap: 0.4rem;
+
+  @media (max-width: 768px) {
+    gap: 0.3rem;
+    padding: 0.3rem;
+  }
+
+  @media (max-width: 480px) {
+    flex-wrap: wrap;
+    gap: 0.5rem;
+  }
 `;
 
 const FilterButton = styled.button`
@@ -25,13 +35,30 @@ const FilterButton = styled.button`
   border-radius: var(--border-radius-sm);
   font-weight: 500;
   font-size: 1.4rem;
-  /* To give the same height as select */
   padding: 0.44rem 0.8rem;
   transition: all 0.3s;
+  cursor: pointer;
 
   &:hover:not(:disabled) {
     background-color: var(--color-brand-600);
     color: var(--color-brand-50);
+  }
+
+  &:disabled {
+    cursor: not-allowed;
+    opacity: 0.7;
+  }
+
+  @media (max-width: 768px) {
+    font-size: 1.2rem;
+    padding: 0.35rem 0.7rem;
+  }
+
+  @media (max-width: 480px) {
+    font-size: 1.1rem;
+    padding: 0.3rem 0.6rem;
+    flex: 1;
+    text-align: center;
   }
 `;
 

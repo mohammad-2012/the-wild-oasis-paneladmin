@@ -5,6 +5,12 @@ const StyledDataItem = styled.div`
   align-items: center;
   gap: 1.6rem;
   padding: 0.8rem 0;
+  flex-wrap: wrap;
+
+  @media (max-width: 480px) {
+    gap: 1rem;
+    padding: 0.6rem 0;
+  }
 `;
 
 const Label = styled.span`
@@ -17,6 +23,16 @@ const Label = styled.span`
     width: 2rem;
     height: 2rem;
     color: var(--color-brand-600);
+  }
+
+  @media (max-width: 480px) {
+    font-size: 1.2rem;
+    gap: 0.6rem;
+
+    & svg {
+      width: 1.6rem;
+      height: 1.6rem;
+    }
   }
 `;
 

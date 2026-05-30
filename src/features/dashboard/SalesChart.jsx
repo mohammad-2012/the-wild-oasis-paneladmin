@@ -16,10 +16,32 @@ import { eachDayOfInterval, format, isSameDay, subDays } from "date-fns";
 const StyledSalesChart = styled(DashboardBox)`
   grid-column: 1 / -1;
 
-  /* Hack to change grid line colors */
   & .recharts-cartesian-grid-horizontal line,
   & .recharts-cartesian-grid-vertical line {
     stroke: var(--color-grey-300);
+  }
+
+  @media (max-width: 768px) {
+    padding: 1.5rem;
+
+    & .recharts-wrapper {
+      font-size: 10px;
+    }
+  }
+
+  @media (max-width: 480px) {
+    padding: 1rem;
+  }
+`;
+
+const ChartHeading = styled(Heading)`
+  @media (max-width: 768px) {
+    font-size: 1.4rem;
+    margin-bottom: 1rem;
+  }
+
+  @media (max-width: 480px) {
+    font-size: 1.2rem;
   }
 `;
 
@@ -32,14 +54,13 @@ function SalesChart({ bookings, numDays }) {
   });
 
   const data = allDates.map((date) => {
+    const dayBookings = bookings.filter((booking) =>
+      isSameDay(date, new Date(booking.created_at)),
+    );
     return {
       label: format(date, "MMM dd"),
-      totalSales: bookings
-        .filter((booking) => isSameDay(date, new Date(booking.created_at)))
-        .reduce((acc, cur) => acc + cur.totalPrice, 0),
-      extrasSales: bookings
-        .filter((booking) => isSameDay(date, new Date(booking.created_at)))
-        .reduce((acc, cur) => acc + cur.extrasPrice, 0),
+      totalSales: dayBookings.reduce((acc, cur) => acc + cur.totalPrice, 0),
+      extrasSales: dayBookings.reduce((acc, cur) => acc + cur.extrasPrice, 0),
     };
   });
 
@@ -59,25 +80,34 @@ function SalesChart({ bookings, numDays }) {
 
   return (
     <StyledSalesChart>
-      <Heading as="h2">
-        Sales from {format(allDates.at(0), "MMM dd yyyy")} &mdash;{" "}
-        {format(allDates.at(-1), "MMM dd yyyy")}{" "}
-      </Heading>
+      <ChartHeading as="h2">
+        Sales from {format(allDates[0], "MMM dd yyyy")} &mdash;{" "}
+        {format(allDates[allDates.length - 1], "MMM dd yyyy")}
+      </ChartHeading>
 
       <ResponsiveContainer height={300} width="100%">
         <AreaChart data={data}>
           <XAxis
             dataKey="label"
-            tick={{ fill: colors.text }}
+            tick={{ fill: colors.text, fontSize: 12 }}
             tickLine={{ stroke: colors.text }}
+            interval="preserveStartEnd"
           />
           <YAxis
             unit="$"
-            tick={{ fill: colors.text }}
+            tick={{ fill: colors.text, fontSize: 12 }}
             tickLine={{ stroke: colors.text }}
+            width={50}
           />
           <CartesianGrid strokeDasharray="4" />
-          <Tooltip contentStyle={{ backgroundColor: colors.background }} />
+          <Tooltip
+            contentStyle={{
+              backgroundColor: colors.background,
+              borderRadius: "8px",
+              border: "none",
+              fontSize: "12px",
+            }}
+          />
           <Area
             dataKey="totalSales"
             type="monotone"

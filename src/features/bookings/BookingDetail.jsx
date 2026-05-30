@@ -23,6 +23,50 @@ const HeadingGroup = styled.div`
   display: flex;
   gap: 2.4rem;
   align-items: center;
+  flex-wrap: wrap;
+
+  @media (max-width: 768px) {
+    gap: 1.5rem;
+  }
+
+  @media (max-width: 480px) {
+    gap: 1rem;
+    justify-content: space-between;
+    width: 100%;
+  }
+`;
+
+const DetailContainer = styled.div`
+  @media (max-width: 768px) {
+    padding: 0 1rem;
+  }
+`;
+
+const StyledRow = styled(Row)`
+  @media (max-width: 768px) {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 1.5rem;
+  }
+`;
+
+const BackButtonWrapper = styled.div`
+  @media (max-width: 768px) {
+    align-self: flex-end;
+  }
+`;
+
+const StyledButtonGroup = styled(ButtonGroup)`
+  @media (max-width: 768px) {
+    flex-direction: column;
+    gap: 1rem;
+    width: 100%;
+
+    button {
+      width: 100%;
+      justify-content: center;
+    }
+  }
 `;
 
 function BookingDetail() {
@@ -45,18 +89,20 @@ function BookingDetail() {
   };
 
   return (
-    <>
-      <Row type="horizontal">
+    <DetailContainer>
+      <StyledRow type="horizontal">
         <HeadingGroup>
           <Heading as="h1">Booking #{bookingId}</Heading>
           <Tag type={statusToTagName[status]}>{status.replace("-", " ")}</Tag>
         </HeadingGroup>
-        <ButtonText onClick={moveBack}>&larr; Back</ButtonText>
-      </Row>
+        <BackButtonWrapper>
+          <ButtonText onClick={moveBack}>&larr; Back</ButtonText>
+        </BackButtonWrapper>
+      </StyledRow>
 
       <BookingDataBox booking={booking} />
 
-      <ButtonGroup>
+      <StyledButtonGroup>
         {status === "unconfirmed" && (
           <Button onClick={() => navigate(`/checkin/${bookingId}`)}>
             Check in
@@ -94,8 +140,8 @@ function BookingDetail() {
         <Button variation="secondary" onClick={moveBack}>
           Back
         </Button>
-      </ButtonGroup>
-    </>
+      </StyledButtonGroup>
+    </DetailContainer>
   );
 }
 

@@ -10,18 +10,48 @@ const StyledCheckbox = styled.div`
     outline-offset: 2px;
     transform-origin: 0;
     accent-color: var(--color-brand-600);
+    cursor: pointer;
   }
 
   & input[type="checkbox"]:disabled {
     accent-color: var(--color-brand-600);
+    cursor: not-allowed;
   }
 
   & label {
     flex: 1;
-
     display: flex;
     align-items: center;
     gap: 0.8rem;
+    cursor: pointer;
+  }
+
+  @media (max-width: 768px) {
+    gap: 1rem;
+
+    & input[type="checkbox"] {
+      height: 2rem;
+      width: 2rem;
+    }
+
+    & label {
+      font-size: 1.4rem;
+    }
+  }
+
+  @media (max-width: 480px) {
+    gap: 0.8rem;
+    flex-direction: column;
+    align-items: flex-start;
+
+    & input[type="checkbox"] {
+      height: 1.8rem;
+      width: 1.8rem;
+    }
+
+    & label {
+      font-size: 1.2rem;
+    }
   }
 `;
 

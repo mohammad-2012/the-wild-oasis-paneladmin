@@ -17,11 +17,24 @@ import { useCheckin } from "./useCheckin";
 import { useSettings } from "../settings/useSettings";
 
 const Box = styled.div`
-  /* Box */
   background-color: var(--color-grey-0);
   border: 1px solid var(--color-grey-100);
   border-radius: var(--border-radius-md);
   padding: 2.4rem 4rem;
+
+  @media (max-width: 768px) {
+    padding: 1.8rem 2rem;
+  }
+
+  @media (max-width: 480px) {
+    padding: 1.5rem;
+  }
+`;
+
+const PageContainer = styled.div`
+  @media (max-width: 768px) {
+    padding: 0 1rem;
+  }
 `;
 
 function CheckinBooking() {
@@ -67,7 +80,7 @@ function CheckinBooking() {
   }
 
   return (
-    <>
+    <PageContainer>
       <Row type="horizontal">
         <Heading as="h1">Check in booking #{bookingId}</Heading>
         <ButtonText onClick={moveBack}>&larr; Back</ButtonText>
@@ -101,9 +114,9 @@ function CheckinBooking() {
           {!addBreakfast
             ? formatCurrency(totalPrice)
             : `${formatCurrency(
-                totalPrice + optionalBreakfastPrice
+                totalPrice + optionalBreakfastPrice,
               )} (${formatCurrency(totalPrice)} + ${formatCurrency(
-                optionalBreakfastPrice
+                optionalBreakfastPrice,
               )})`}
         </Checkbox>
       </Box>
@@ -116,7 +129,7 @@ function CheckinBooking() {
           Back
         </Button>
       </ButtonGroup>
-    </>
+    </PageContainer>
   );
 }
 

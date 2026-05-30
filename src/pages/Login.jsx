@@ -11,6 +11,18 @@ const LoginLayout = styled.main`
   justify-content: center;
   gap: 3.2rem;
   background-color: var(--color-grey-50);
+  padding: 2rem;
+
+  @media (max-width: 768px) {
+    grid-template-columns: 90%;
+    gap: 2.4rem;
+  }
+
+  @media (max-width: 480px) {
+    grid-template-columns: 100%;
+    gap: 2rem;
+    padding: 1.5rem;
+  }
 `;
 
 function Login() {

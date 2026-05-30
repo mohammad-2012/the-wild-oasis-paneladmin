@@ -1,10 +1,17 @@
 import { useState } from "react";
+import styled from "styled-components";
 import Button from "../../ui/Button";
 import Form from "../../ui/Form";
 import Input from "../../ui/Input";
 import FormRowVertical from "../../ui/FormRowVertical";
 import { useLogin } from "./useLogin";
 import SpinnerMini from "../../ui/SpinnerMini";
+
+const StyledLoginForm = styled(Form)`
+  @media (max-width: 480px) {
+    padding: 1.5rem;
+  }
+`;
 
 function LoginForm() {
   const [email, setEmail] = useState("");
@@ -21,17 +28,16 @@ function LoginForm() {
           setEmail("");
           setPassword("");
         },
-      }
+      },
     );
   }
 
   return (
-    <Form onSubmit={handleSubmit}>
+    <StyledLoginForm onSubmit={handleSubmit}>
       <FormRowVertical label="Email address">
         <Input
           type="email"
           id="email"
-          // This makes this form better for password managers
           autoComplete="username"
           value={email}
           onChange={(e) => setEmail(e.target.value)}
@@ -54,7 +60,7 @@ function LoginForm() {
           {!isLoading ? "Log in" : <SpinnerMini />}
         </Button>
       </FormRowVertical>
-    </Form>
+    </StyledLoginForm>
   );
 }
 

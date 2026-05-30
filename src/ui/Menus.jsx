@@ -8,6 +8,7 @@ const Menu = styled.div`
   display: flex;
   align-items: center;
   justify-content: flex-end;
+  position: relative;
 `;
 
 const StyledToggle = styled.button`
@@ -17,6 +18,7 @@ const StyledToggle = styled.button`
   border-radius: var(--border-radius-sm);
   transform: translateX(0.8rem);
   transition: all 0.2s;
+  cursor: pointer;
 
   &:hover {
     background-color: var(--color-grey-100);
@@ -27,17 +29,46 @@ const StyledToggle = styled.button`
     height: 2.4rem;
     color: var(--color-grey-700);
   }
+
+  @media (max-width: 768px) {
+    padding: 0.6rem;
+    transform: translateX(0);
+
+    & svg {
+      width: 2.2rem;
+      height: 2.2rem;
+    }
+  }
+
+  @media (max-width: 480px) {
+    padding: 0.8rem;
+
+    & svg {
+      width: 2rem;
+      height: 2rem;
+    }
+  }
 `;
 
 const StyledList = styled.ul`
   position: fixed;
-
   background-color: var(--color-grey-0);
   box-shadow: var(--shadow-md);
   border-radius: var(--border-radius-md);
+  z-index: 1100;
+  min-width: 160px;
 
   right: ${(props) => props.position.x}px;
   top: ${(props) => props.position.y}px;
+
+  @media (max-width: 768px) {
+    min-width: 150px;
+  }
+
+  @media (max-width: 480px) {
+    min-width: 140px;
+    right: ${(props) => Math.max(10, props.position.x)}px;
+  }
 `;
 
 const StyledButton = styled.button`
@@ -48,10 +79,10 @@ const StyledButton = styled.button`
   padding: 1.2rem 2.4rem;
   font-size: 1.4rem;
   transition: all 0.2s;
-
   display: flex;
   align-items: center;
   gap: 1.6rem;
+  cursor: pointer;
 
   &:hover {
     background-color: var(--color-grey-50);
@@ -62,6 +93,23 @@ const StyledButton = styled.button`
     height: 1.6rem;
     color: var(--color-grey-400);
     transition: all 0.3s;
+  }
+
+  @media (max-width: 768px) {
+    padding: 1rem 1.6rem;
+    font-size: 1.3rem;
+    gap: 1.2rem;
+  }
+
+  @media (max-width: 480px) {
+    padding: 1rem 1.4rem;
+    font-size: 1.3rem;
+    gap: 1rem;
+
+    & svg {
+      width: 1.6rem;
+      height: 1.6rem;
+    }
   }
 `;
 
@@ -90,9 +138,12 @@ function Toggle({ id }) {
     e.stopPropagation();
 
     const rect = e.target.closest("button").getBoundingClientRect();
+    const spaceRight = window.innerWidth - rect.right;
+    const spaceBottom = window.innerHeight - rect.bottom;
+
     setPosition({
-      x: window.innerWidth - rect.width - rect.x,
-      y: rect.y + rect.height + 8,
+      x: spaceRight < 140 ? spaceRight - 10 : rect.width,
+      y: rect.bottom + 8,
     });
 
     openId === "" || openId !== id ? open(id) : close();
@@ -115,7 +166,7 @@ function List({ id, children }) {
     <StyledList position={position} ref={ref}>
       {children}
     </StyledList>,
-    document.body
+    document.body,
   );
 }
 
