@@ -3,7 +3,7 @@ import react from "@vitejs/plugin-react";
 import eslint from "vite-plugin-eslint";
 
 export default defineConfig({
-  base: "/the-wild-oasis/",
+  base: "./",
   plugins: [react(), eslint()],
   build: {
     outDir: "dist",
